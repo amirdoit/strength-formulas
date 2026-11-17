@@ -38,4 +38,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python3 scripts/gen-vectors.py
-      - run: git diff --exit-code -- packages/core/test/vectors.json || (echo "vectors.json is stale: rerun scripts/gen-vectors.py" && exit 1)
+      - name: Fail if vectors.json is stale
+        run: |
+          if ! git diff --exit-code -- packages/core/test/vectors.json; then
+            echo "vectors.json is stale. Rerun scripts/gen-vectors.py and commit the result."
+            exit 1
+          fi
