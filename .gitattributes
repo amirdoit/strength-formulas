@@ -1,0 +1,4 @@
+# Vendored reference sources (OpenPowerlifting, MIT). Exclude from GitHub language stats.
+scripts/opl-sources/** linguist-vendored
+packages/core/test/vectors.json linguist-generated
+package-lock.json linguist-generated
