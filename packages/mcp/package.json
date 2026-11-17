@@ -3,16 +3,34 @@
   "version": "0.1.0",
   "description": "MCP server that gives AI agents exact strength-sport math (Wilks, DOTS, IPF GL, e1RM, plates) instead of letting them guess.",
   "type": "module",
-  "bin": { "strength-formulas-mcp": "./dist/index.js" },
+  "bin": {
+    "strength-formulas-mcp": "./dist/index.js"
+  },
   "main": "./dist/index.js",
-  "files": ["dist", "README.md", "LICENSE"],
-  "engines": { "node": ">=18" },
+  "files": [
+    "LICENSE",
+    "NOTICE.md",
+    "README.md",
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepack": "node ../../scripts/copy-legal.mjs"
   },
-  "keywords": ["mcp", "model-context-protocol", "powerlifting", "wilks", "dots", "one-rep-max", "strength"],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "powerlifting",
+    "wilks",
+    "dots",
+    "one-rep-max",
+    "strength"
+  ],
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
@@ -23,5 +41,15 @@
     "typescript": "^5.6.0",
     "vitest": "^2.1.0",
     "@types/node": "^22.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amirdoit/strength-formulas.git",
+    "directory": "packages/mcp"
+  },
+  "homepage": "https://github.com/amirdoit/strength-formulas#readme",
+  "bugs": {
+    "url": "https://github.com/amirdoit/strength-formulas/issues"
+  },
+  "author": "Amir Iqbal"
 }
