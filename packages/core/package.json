@@ -1,0 +1,26 @@
+{
+  "name": "strength-formulas",
+  "version": "0.1.0",
+  "description": "Zero-dependency, cross-checked strength-sport math: Wilks, Wilks-2020, DOTS, IPF Points, IPF GL, one-rep-max estimators and plate loading.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" }
+  },
+  "files": ["dist", "README.md", "LICENSE", "NOTICE.md"],
+  "sideEffects": false,
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "keywords": ["powerlifting", "wilks", "dots", "ipf-gl", "goodlift", "one-rep-max", "1rm", "e1rm", "plate-calculator", "strength", "weightlifting", "mcp"],
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0",
+    "@types/node": "^22.0.0"
+  }
+}

@@ -1,0 +1,20 @@
+name: upstream-drift
+
+# Re-downloads OpenPowerlifting's coefficient sources and regenerates the golden vectors.
+# Fails if upstream changed anything, so a formula revision (e.g. a new Wilks-2020 table)
+# is noticed instead of silently making our reference stale.
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/gen-vectors.py --update
+      - run: git diff --exit-code -- scripts/opl-sources packages/core/test/vectors.json

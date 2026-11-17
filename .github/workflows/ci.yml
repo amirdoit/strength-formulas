@@ -1,0 +1,41 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run typecheck
+      - run: npm test
+
+  skill:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/validate-skill.py
+
+  vectors-fresh:
+    # Offline and deterministic: regenerates the golden vectors from the vendored
+    # OpenPowerlifting sources and fails if the committed vectors.json is stale.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/gen-vectors.py
+      - run: git diff --exit-code -- packages/core/test/vectors.json || (echo "vectors.json is stale: rerun scripts/gen-vectors.py" && exit 1)
