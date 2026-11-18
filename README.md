@@ -8,14 +8,21 @@ Strength-sport math you can verify, and that AI agents can call instead of guess
 
 Language models are bad at long-coefficient polynomials. Ask one for your DOTS score and you get a plausible number that is wrong. This repo makes the right number one tool call away.
 
-## Library
+## Install
+
+Not published to npm yet, so install from source (Node 18+):
 
 ```bash
-npm install strength-formulas
+git clone https://github.com/amirdoit/strength-formulas
+cd strength-formulas
+npm ci && npm run build
 ```
 
+## Library
+
 ```ts
-import { dots, goodlift, wilks2020, estimateOneRepMax, estimateOneRepMaxAll, weightForReps, platesPerSide } from "strength-formulas";
+// from the repo root after building; the package name will be "strength-formulas" once it is on npm
+import { dots, goodlift, wilks2020, estimateOneRepMax, estimateOneRepMaxAll, weightForReps, platesPerSide } from "./packages/core/dist/index.js";
 
 dots("male", 93, 800);                                      // 509.00
 goodlift("female", 70.5, 122.5, { equipment: "raw", event: "bench" }); // 96.78
@@ -33,15 +40,17 @@ Weights in scoring functions are **kilograms**. Plate math and 1RM work in any u
 
 ## MCP server
 
+After building (see Install), point your MCP client at the built server. Use the absolute path to your clone:
+
 ```json
 {
   "mcpServers": {
-    "strength-formulas": { "command": "npx", "args": ["-y", "strength-formulas-mcp"] }
+    "strength-formulas": { "command": "node", "args": ["/absolute/path/to/strength-formulas/packages/mcp/dist/index.js"] }
   }
 }
 ```
 
-Claude Code: `claude mcp add strength-formulas -- npx -y strength-formulas-mcp`
+Claude Code: `claude mcp add strength-formulas -- node /absolute/path/to/strength-formulas/packages/mcp/dist/index.js`
 
 | Tool | What it does |
 |---|---|

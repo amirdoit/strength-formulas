@@ -2,7 +2,7 @@
 name: lifting-math
 description: Exact strength-sport math for powerlifting and weightlifting questions. Use when asked to compute or compare Wilks, Wilks-2020, DOTS, IPF GL or IPF Points scores, estimate a one-rep max (e1RM) from a set, find the weight for a rep target, or work out which plates to load. Do not estimate these numbers by hand.
 license: MIT
-compatibility: Works best with the strength-formulas MCP server. Falls back to the strength-formulas npm package (Node 18+).
+compatibility: Works best with the strength-formulas MCP server. Falls back to the built strength-formulas library from its GitHub repo (Node 18+).
 metadata:
   author: amirdoit
   version: "0.1.0"
@@ -16,11 +16,12 @@ Strength scores and 1RM estimates are polynomial and exponential formulas with l
 ## How to compute
 
 1. **If the `strength-formulas` MCP server is connected**, call its tools: `strength_scores`, `estimate_one_rep_max`, `weight_for_reps`, `plate_loading`, `convert_weight`.
-2. **Otherwise**, if you can run Node 18+, install and call the library:
+2. **Otherwise**, if you can run Node 18+, clone and build the library, then call it:
 
    ```bash
-   npm install strength-formulas
-   node --input-type=module -e 'import {dots} from "strength-formulas"; console.log(dots("male", 93, 800))'
+   git clone https://github.com/amirdoit/strength-formulas && cd strength-formulas
+   npm ci && npm run build
+   node --input-type=module -e 'import {dots} from "./packages/core/dist/index.js"; console.log(dots("male", 93, 800))'
    ```
 
 3. **If you can run neither**, say the numbers are not computed and give the formula name only. Do not invent coefficients.
